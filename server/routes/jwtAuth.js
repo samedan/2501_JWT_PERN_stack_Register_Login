@@ -2,10 +2,11 @@ const router = require("express").Router();
 const pool = require("../db");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
+const validInfo = require("../middleware/validInfo");
 
 // registering
 // @POST backend_Url/auth/register
-router.post("/register", async (req, res) => {
+router.post("/register", validInfo, async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = await pool.query(
@@ -37,7 +38,7 @@ router.post("/register", async (req, res) => {
 
 // login
 // @POST backenc_Url/auth/login
-router.post("/login", async (req, res) => {
+router.post("/login", validInfo, async (req, res) => {
   try {
     //1. Destructure
     const { email, password } = req.body;

@@ -6,6 +6,10 @@
 
 > https://github.com/samedan/2501_JWT_PERN_stack_Register_Login
 
+### Source Git
+
+> https://github.com/ousecTic/pern-jwt-tutorial
+
 ### Create DBB
 
 > CREATE DATABASE jwttutorial;
@@ -20,6 +24,14 @@
 
 > ADD UUID extension ->psql: CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-### Token
+### Generate Token
 
-> /routes/jwtAuth.js -> register
+> /utils/jwtGenerator.js
+
+### Use Token
+
+> /routes/jwtAuth.js -> register, login
+
+### Validate Email
+
+> /middleware/validInfo.js
