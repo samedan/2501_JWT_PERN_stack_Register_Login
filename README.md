@@ -1,3 +1,11 @@
+### Source
+
+> https://www.youtube.com/watch?v=7UQBMb8ZpuE&t=3575s
+
+### This Git
+
+> https://github.com/samedan/2501_JWT_PERN_stack_Register_Login
+
 ### Create DBB
 
 > CREATE DATABASE jwttutorial;
@@ -11,3 +19,7 @@
 > /server/database.sql
 
 > ADD UUID extension ->psql: CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+### Token
+
+> /routes/jwtAuth.js -> register

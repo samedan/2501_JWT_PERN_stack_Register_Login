@@ -35,4 +35,33 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// login
+// @POST backenc_Url/auth/login
+router.post("/login", async (req, res) => {
+  try {
+    //1. Destructure
+    const { email, password } = req.body;
+    //2. Check user exists
+    const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
+      email,
+    ]);
+    if (user.rows.length === 0) {
+      return res.status(401).json("Password or Email are incorrect");
+    }
+    //3. Check if password the same
+    const validPassword = await bcrypt.compare(
+      password,
+      user.rows[0].user_password
+    );
+    if (!validPassword)
+      return res.status(401).json("Password or Email are incorrect");
+    //4. Give kwt Token
+    const token = jwtGenerator(user.rows[0].user_id);
+    res.json({ token });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;
