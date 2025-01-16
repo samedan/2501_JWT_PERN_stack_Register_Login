@@ -35,3 +35,11 @@
 ### Validate Email
 
 > /middleware/validInfo.js
+
+### Get User Data by Sending Token
+
+# Dashboard Route send 'authorization' middleware
+
+> /routes/dashboard.js -> router.get("/", authorization, async (req, res) => {})
+
+# Return user_name if token is valid
