@@ -9,7 +9,7 @@ import {
 import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,6 +17,26 @@ function App() {
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+
+  console.log("isAuthenticated", isAuthenticated);
+
+  const checkIsAuth = async () => {
+    try {
+      const response = await fetch("http://localhost:5001/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+      const parseRes = await response.json();
+      console.log(parseRes);
+      parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    checkIsAuth();
+  }, []);
 
   return (
     <>

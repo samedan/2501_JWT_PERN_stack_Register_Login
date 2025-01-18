@@ -45,3 +45,13 @@
 > /routes/dashboard.js -> router.get("/", authorization, async (req, res) => {})
 
 # Return user_name if token is valid
+
+### Check token from Frontend on Backend
+
+# Send saved token to backend
+
+> App.js -> checkIsAuth()
+
+# Send True/false from backend after checking token
+
+> backend_Url/auth/is-verify
