@@ -27,12 +27,13 @@ router.post("/register", validInfo, async (req, res) => {
       "INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *; ",
       [name, email, bcryptPassword]
     );
-    // res.json(newUser.rows[0]);
+
     // token
     const token = jwtGenerator(newUser.rows[0].user_id);
     res.json({ token });
   } catch (err) {
     console.log(err.message);
+    console.log(err);
     res.status(500).json("Server error");
   }
 });
@@ -73,7 +74,7 @@ router.get("/is-verify", authorization, async (req, res) => {
     res.json(true);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server error");
+    res.status(500).json("Server error");
   }
 });
 

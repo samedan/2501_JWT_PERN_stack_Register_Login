@@ -10,8 +10,11 @@ import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/ReactToastify.css";
 
 function App() {
+  // toast.configure();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
@@ -21,6 +24,7 @@ function App() {
   console.log("isAuthenticated", isAuthenticated);
 
   const checkIsAuth = async () => {
+    console.log("isAuthenticated", isAuthenticated);
     try {
       const response = await fetch("http://localhost:5001/auth/is-verify", {
         method: "GET",
@@ -28,7 +32,7 @@ function App() {
       });
       const parseRes = await response.json();
       console.log(parseRes);
-      parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (err) {
       console.error(err.message);
     }
@@ -42,6 +46,7 @@ function App() {
     <>
       <Router>
         <div className="container">
+          <ToastContainer />
           <Routes>
             <Route
               exact

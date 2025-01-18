@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Register({ setAuth }) {
   const [inputs, setInputs] = useState({
@@ -9,6 +10,10 @@ function Register({ setAuth }) {
   });
 
   const { email, name, password } = inputs;
+
+  const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -24,8 +29,29 @@ function Register({ setAuth }) {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      localStorage.setItem("token", parseRes.token);
-      setAuth(true);
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        setAuth(true);
+        toast.success("Registered successfully");
+      } else {
+        setAuth(false);
+        console.log(parseRes);
+        if (parseRes.errorsValidation) {
+          console.log(parseRes.errorsValidation);
+          if (parseRes.errorsValidation["email"]) {
+            setEmailError("Email missing");
+            toast.error("Email missing");
+          }
+          if (parseRes.errorsValidation["name"]) {
+            toast.error("Name missing");
+          }
+          if (parseRes.errorsValidation["password"]) {
+            toast.error("Password missing");
+          }
+        }
+
+        toast.error(parseRes);
+      }
     } catch (err) {
       console.log(err);
       console.log(JSON.stringify(err.message));
@@ -35,13 +61,15 @@ function Register({ setAuth }) {
   return (
     <>
       <h1 className="text-center my-5">Register</h1>
-
+      {emailError && <p>email error</p>}
       <form action="" onSubmit={onSubmitForm} autoComplete="off">
         <input
           type="text"
           name="name"
           placeholder="Name"
-          className="form-control my-3"
+          className={`form-control my-3 ${
+            emailError ? "border-danger border" : ""
+          } `}
           autoComplete="off"
           value={name}
           onChange={(e) => onChange(e)}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ const Dashboard = ({ setAuth }) => {
       setName(parseRes.user_name);
     } catch (err) {
       console.error(err.message);
+      toast.error("Connection error. ".err.message);
     }
   };
 
@@ -20,6 +22,7 @@ const Dashboard = ({ setAuth }) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setAuth(false);
+    toast.success("You logged out.");
   };
 
   useEffect(() => {
