@@ -16,7 +16,7 @@ router.post("/register", validInfo, async (req, res) => {
     );
     // check for user exists
     if (user.rows.length !== 0) {
-      return res.status(401).send("User already exists");
+      return res.status(401).json("User already exists");
     }
     // bcrypt
     const saltRound = 10;
@@ -33,7 +33,7 @@ router.post("/register", validInfo, async (req, res) => {
     res.json({ token });
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server error");
+    res.status(500).json("Server error");
   }
 });
 
@@ -62,7 +62,7 @@ router.post("/login", validInfo, async (req, res) => {
     res.json({ token });
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server error");
+    res.status(500).json("Server error");
   }
 });
 

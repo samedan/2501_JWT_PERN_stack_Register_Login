@@ -1,7 +1,12 @@
 import React from "react";
 
-function Login() {
-  return <div>Login</div>;
+function Login({ setAuth }) {
+  return (
+    <>
+      <div>Login</div>
+      <button onClick={() => setAuth(true)}>Logout</button>
+    </>
+  );
 }
 
 export default Login;

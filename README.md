@@ -14,6 +14,8 @@
 
 > CREATE DATABASE jwttutorial;
 
+> .env in SERVER Folder
+
 ### Add uuid extension to Database
 
 > CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
