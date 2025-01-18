@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Register() {
+function Register({ setAuth }) {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -23,7 +24,8 @@ function Register() {
         body: JSON.stringify(body),
       });
       const parseRes = await response.json();
-      console.log(parseRes);
+      localStorage.setItem("token", parseRes.token);
+      setAuth(true);
     } catch (err) {
       console.log(err);
       console.log(JSON.stringify(err.message));
@@ -65,6 +67,7 @@ function Register() {
         />
         <button className="btn btn-success btn-block">Submit</button>
       </form>
+      <Link to="/login">Login</Link>
     </>
   );
 }
